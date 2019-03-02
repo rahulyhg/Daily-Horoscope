@@ -1,6 +1,8 @@
 package org.pursuit.dailyhoroscope;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,9 +30,17 @@ public class DisplayHoroscope extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_horoscope);
 
-        setUpRetrofitDisplay(getIntentString());
+        Intent intent = getIntent();
+        String name = intent.getStringExtra(MainActivity.INTENT_KEY);
+        String color = intent.getStringExtra(MainActivity.INTENT_KEY2);
+
+        ConstraintLayout container = findViewById(R.id.display_container);
+        container.setBackgroundColor(Color.parseColor(color));
+        setUpRetrofitDisplay(name);
 
     }
+
+
 
     private void setUpRetrofitDisplay(String signName) {
         Retrofit retrofit = RetrofitSingleton.getInstance();
@@ -53,16 +63,11 @@ public class DisplayHoroscope extends AppCompatActivity {
         });
     }
 
-    public String getIntentString() {
-        Intent intent = getIntent();
-        return intent.getStringExtra(MainActivity.INTENT_KEY);
-    }
-
     public void inflateStuff(Response<Horoscope> response) {
         TextView displaysign = findViewById(R.id.sign_name);
         TextView displayHoro = findViewById(R.id.horoscope_text);
         TextView displayDate = findViewById(R.id.horoscope_date);
-//substring 59
+        //substring 59
         displaysign.setText(response.body().getSunsign());
         displayHoro.setText(response.body().getHoroscope().substring(0, response.body().getHoroscope().length() - 59));
         displayDate.setText(getDate());
