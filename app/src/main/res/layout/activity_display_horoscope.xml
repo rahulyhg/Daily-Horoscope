@@ -8,10 +8,36 @@
 
     <TextView
         android:id="@+id/sign_name"
-        android:hint="text"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center_horizontal"
-        android:textSize="30sp" />
+        android:hint="text"
+        android:textSize="30sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/horoscope_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:hint="horoscope"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sign_name" />
+
+    <TextView
+        android:id="@+id/horoscope_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="date"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@id/horoscope_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sign_name"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="55dp" />
 
 </android.support.constraint.ConstraintLayout>
