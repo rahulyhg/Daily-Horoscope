@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import org.pursuit.dailyhoroscope.controller.HoroscopeAdapter;
 import org.pursuit.dailyhoroscope.model.HoroApi;
 import org.pursuit.dailyhoroscope.model.Signs;
 import org.pursuit.dailyhoroscope.network.HoroscopeService;
@@ -23,18 +24,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setUpRetroFit();
 
+        setUpRetroFit(setUpRecyclerView());
     }
 
-    public void setUpRetroFit() {
+    public void setUpRetroFit(final RecyclerView recyclerView) {
         Retrofit retrofit = RetrofitSingleton.getInstance();
         Call<String[]> call = retrofit.create(HoroscopeService.class).getSignsEndPoint();
         Log.d(TAG, "setUpRetroFit: " + call.request());
         call.enqueue(new Callback<String[]>() {
             @Override
             public void onResponse(Call<String[]> call, Response<String[]> response) {
-                Log.d(TAG, "onResponse: " + response.body().toString());
+                Log.d(TAG, "onResponse: " + response.body()[0]);
+                recyclerView.setAdapter(new HoroscopeAdapter(response.body()));
             }
 
             @Override
@@ -45,8 +47,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void setUpRecyclerView() {
+    public RecyclerView setUpRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        return recyclerView;
     }
 }
