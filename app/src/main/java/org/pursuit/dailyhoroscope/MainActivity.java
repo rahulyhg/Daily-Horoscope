@@ -19,6 +19,7 @@ import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
     public static final String INTENT_KEY = "intent key";
+    public static final String INTENT_KEY2 = "intent key2";
 
     public static final String TAG = "not it";
 
